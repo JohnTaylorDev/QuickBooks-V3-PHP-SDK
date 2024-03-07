@@ -8,7 +8,7 @@ class CoreConstants
 {
     //Set the default minor version
     const DEFAULT_SDK_MINOR_VERSION = "68";
-    const DEFAULT_LOGGINGLOCATION = "/tmp/IdsLogs";
+    const DEFAULT_LOGGINGLOCATION = "/dev/null";
 
     const PHP_CLASS_PREFIX = 'IPP';
     /*
