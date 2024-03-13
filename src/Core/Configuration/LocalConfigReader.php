@@ -99,7 +99,7 @@ class LocalConfigReader
         }
     }
 
-    public static function ReadConfigurationFromParameters($OAuthConfig, $baseUrl, $defaultLoggingLocation = CoreConstants::DEFAULT_LOGGINGLOCATION, $minorVersion = CoreConstants::DEFAULT_SDK_MINOR_VERSION)
+    public static function ReadConfigurationFromParameters($OAuthConfig, $baseUrl)
     {
         $ippConfig = new IppConfiguration();
         try {
@@ -121,13 +121,13 @@ class LocalConfigReader
                 $ippConfig->BaseUrl = new BaseUrl();
                 $ippConfig->BaseUrl->Qbo = $baseUrl;
                 //Set content writer and logger
-                LocalConfigReader::setupLogger($ippConfig, $defaultLoggingLocation, "TRUE");
+                LocalConfigReader::setupLogger($ippConfig, CoreConstants::DEFAULT_LOGGINGLOCATION, "FALSE");
                 LocalConfigReader::setupContentWriter($ippConfig, CoreConstants::FILE_STRATEGY, CoreConstants::PHP_CLASS_PREFIX, null, false);
                 //Set API Entity Rules
                 $rules=CoreConstants::getQuickBooksOnlineAPIEntityRules();
                 LocalConfigReader::initOperationControlList($ippConfig, $rules);
                 //Set minor version
-                $ippConfig->minorVersion = $minorVersion;
+                $ippConfig->minorVersion = CoreConstants::DEFAULT_SDK_MINOR_VERSION;
 
             return $ippConfig;
         } catch (\Exception $e) {
