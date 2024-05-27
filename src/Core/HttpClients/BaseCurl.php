@@ -28,7 +28,6 @@ class BaseCurl{
         throw new SdkException('The PHP exention curl must be installed to use this PDK.');
     }
     $this->curl = curl_init();
-    $this->setupOption(CURLOPT_TIMEOUT, 60000);
   }
 
   /**

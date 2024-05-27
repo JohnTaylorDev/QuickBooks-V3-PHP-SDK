@@ -26,6 +26,8 @@ use QuickBooksOnline\API\Diagnostics\LogRequestsToDisk;
  */
 class SyncRestHandler extends RestHandler
 {
+    const DEFAULT_TIMEOUT = 60;
+
    /**
     * Store the error information on a non-200 response from QBO
     * @var FaultHandler
@@ -148,7 +150,7 @@ class SyncRestHandler extends RestHandler
       $httpHeaders = $this->setCommonHeadersForPHPSDK($AuthorizationHeader, $requestUri, $requestParameters->ContentType, $requestBody);
       // Log Request Body to a file
       $this->LogAPIRequestToLog($requestBody, $requestUri, $httpHeaders);
-      $intuitResponse = $this->httpClientInterface->makeAPICall($requestUri, $HttpMethod, $httpHeaders, $requestBody, null, false);
+      $intuitResponse = $this->httpClientInterface->makeAPICall($requestUri, $HttpMethod, $httpHeaders, $requestBody, static::DEFAULT_TIMEOUT, false);
       $faultHandler = $intuitResponse->getFaultHandler();
       $this->LogAPIResponseToLog($intuitResponse->getBody(), $requestUri, $intuitResponse->getHeaders());
       //Based on the ducomentation, the fetch expected HTTP/1.1 20X or a redirect. If not, any 3xx, 4xx or 5xx will throw an OAuth Exception
@@ -212,7 +214,7 @@ class SyncRestHandler extends RestHandler
              throw new SdkException("IPP or other Call is not supported in OAuth2 Mode.");
         }
 
-        $intuitResponse = $this->httpClientInterface->makeAPICall($requestUri, $HttpMethod, $httpHeaders,  $requestBody, null, false);
+        $intuitResponse = $this->httpClientInterface->makeAPICall($requestUri, $HttpMethod, $httpHeaders,  $requestBody, static::DEFAULT_TIMEOUT, false);
         $faultHandler = $intuitResponse->getFaultHandler();
         $this->LogAPIResponseToLog($intuitResponse->getBody(), $requestUri, $intuitResponse->getHeaders());
 
