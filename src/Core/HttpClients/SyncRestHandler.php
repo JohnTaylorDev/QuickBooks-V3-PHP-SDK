@@ -26,7 +26,7 @@ use QuickBooksOnline\API\Diagnostics\LogRequestsToDisk;
  */
 class SyncRestHandler extends RestHandler
 {
-    const DEFAULT_TIMEOUT = 60;
+    const DEFAULT_TIMEOUT = 120;
 
    /**
     * Store the error information on a non-200 response from QBO
